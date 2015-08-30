@@ -1,0 +1,10 @@
+c:\users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\bin\Debug\MC Server Config.exe.config
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\bin\Debug\MC Server Config.exe
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\bin\Debug\MC Server Config.pdb
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\obj\Debug\MC Server Config.csprojResolveAssemblyReference.cache
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\obj\Debug\MC_Server_Config.FrmMain.resources
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\obj\Debug\MC_Server_Config.Properties.Resources.resources
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\obj\Debug\MC Server Config.csproj.GenerateResource.Cache
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\obj\Debug\MC Server Config.exe.licenses
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\obj\Debug\MC Server Config.exe
+C:\Users\trent_000\documents\visual studio 2013\Projects\MC Server Config\MC Server Config\obj\Debug\MC Server Config.pdb
