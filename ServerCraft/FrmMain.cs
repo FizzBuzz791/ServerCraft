@@ -85,16 +85,7 @@ namespace MC_Server_Config
         #region Event Handlers
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // The timezone part isn't perfect, but as far as I know, this is just a comment and doesn't really mean much.
-            _serverSettings.Insert(1,
-                string.Format("#{0} {1} {2}", DateTime.Now.ToString("ddd MMM dd HH:mm:ss"), TimeZoneInfo.Local.Id,
-                    DateTime.Now.Year));
-
-            if (File.Exists(_file)) // Just delete it and re-create it. Easier than overwriting.
-                File.Delete(_file);
-
-            File.WriteAllLines(_file, _serverSettings);
-            MessageBox.Show(@"Complete!");
+            
         }
 
         private void chkFlight_CheckedChanged(object sender, EventArgs e)
@@ -193,5 +184,19 @@ namespace MC_Server_Config
             chkWhiteList.Checked = true;
         }
         #endregion Event Handlers
+
+        private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            // The timezone part isn't perfect, but as far as I know, this is just a comment and doesn't really mean much.
+            _serverSettings.Insert(1,
+                string.Format("#{0} {1} {2}", DateTime.Now.ToString("ddd MMM dd HH:mm:ss"), TimeZoneInfo.Local.Id,
+                    DateTime.Now.Year));
+
+            if (File.Exists(_file)) // Just delete it and re-create it. Easier than overwriting.
+                File.Delete(_file);
+
+            File.WriteAllLines(_file, _serverSettings);
+            MessageBox.Show(@"Complete!");
+        }
     }
 }
