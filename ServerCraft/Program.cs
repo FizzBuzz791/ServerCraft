@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MC_Server_Config
+namespace ServerCraft
 {
     static class Program
     {

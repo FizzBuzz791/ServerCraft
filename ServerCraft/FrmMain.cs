@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 
-namespace MC_Server_Config
+namespace ServerCraft
 {
     public partial class FrmMain : Form
     {
@@ -24,10 +24,12 @@ namespace MC_Server_Config
         {
             if (ReadFile())
                 ConfigureSettings();
-
-            BringToFront();
         }
 
+        /// <summary>
+        /// Open a user specified *.properties file and read settings into memory.
+        /// </summary>
+        /// <returns></returns>
         private bool ReadFile()
         {
             bool result = false;
@@ -55,17 +57,85 @@ namespace MC_Server_Config
 
         /// <summary>
         /// Grab any settings present in the current file and reflect them in the form.
+        /// If setting is not present, use the default value as per http://minecraft.gamepedia.com/Server.properties
         /// </summary>
         private void ConfigureSettings()
         {
-            string flight = _serverSettings.Find(s => s.StartsWith("allow-flight"));
-            if (!string.IsNullOrEmpty(flight))
-            {
-                flight = flight.Substring(flight.IndexOf("=", StringComparison.Ordinal) + 1);
-                chkFlight.Checked = Convert.ToBoolean(flight);
-            }
+            chkFlight.Checked = GetBooleanValue("allow-flight", false);
+            chkAnnounce.Checked = GetBooleanValue("announce-player-achievements", true);
+            cbDifficulty.SelectedIndex = GetIntValue("difficulty", 1);
+            chkQuery.Checked = GetBooleanValue("enable-query", false);
+            chkRemote.Checked = GetBooleanValue("enable-rcon", false);
+            chkCommand.Checked = GetBooleanValue("enable-command-block", false);
+            chkForceGameMode.Checked = GetBooleanValue("force-gamemode", false);
+            cbGameMode.SelectedIndex = GetIntValue("gamemode", 0);
+            chkStructures.Checked = GetBooleanValue("generate-structures", true);
+            chkHardcore.Checked = GetBooleanValue("hardcore", false);
+            txtName.Text = GetStringValue("level-name", "world");
+            txtSeed.Text = GetStringValue("level-seed", string.Empty);
+            txtType.Text = GetStringValue("level-type", "DEFAULT");
+            spinBuildHeight.Value = GetIntValue("max-build-height", 256);
+            spinPlayers.Value = GetIntValue("max-players", 20);
+            spinTickTime.Value = GetIntValue("max-tick-time", 60000);
+            spinWorldSize.Value = GetIntValue("max-world-size", 29999984);
+            txtMessage.Text = GetStringValue("motd", "A Minecraft Server");
+            spinNetwork.Value = GetIntValue("network-compression-threshold", 256);
+            chkOnline.Checked = GetBooleanValue("online-mode", true);
+            spinPermission.Value = GetIntValue("op-permission-level", 4);
+            spinTimeout.Value = GetIntValue("player-idle-timeout", 0);
+            chkPvP.Checked = GetBooleanValue("pvp", true);
+            txtResource.Text = GetStringValue("resource-pack", string.Empty);
+            txtResourceHash.Text = GetStringValue("resource-pack-hash", string.Empty);
+            txtServerIP.Text = GetStringValue("server-ip", string.Empty);
+            spinServerPort.Value = GetIntValue("server-port", 25565);
+            chkSnooper.Checked = GetBooleanValue("snooper-enabled", true);
+            chkAnimals.Checked = GetBooleanValue("spawn-animals", true);
+            chkMonsters.Checked = GetBooleanValue("spawn-monsters", true);
+            chkNPCs.Checked = GetBooleanValue("spawn-npcs", true);
+            spinView.Value = GetIntValue("view-distance", 10);
+            chkWhitelist.Checked = GetBooleanValue("white-list", false);
+            chkNether.Checked = GetBooleanValue("allow-nether", true);
+            spinQueryPort.Value = GetIntValue("query.port", 25565);
+            txtRemotePassword.Text = GetStringValue("rcon.password", string.Empty);
+            spinRemotePort.Value = GetIntValue("rcon.port", 25575);
+            spinSpawnProtection.Value = GetIntValue("spawn-protection", 16);
+            chkNativeTransport.Checked = GetBooleanValue("use-native-transport", true);
+        }
 
-            // TODO: All the other settings
+        private bool GetBooleanValue(string key, bool defaultValue)
+        {
+            bool result = defaultValue;
+
+            string value = _serverSettings.Find(s => s.StartsWith(key));
+            if (!string.IsNullOrEmpty(value))
+            {
+                value = value.Substring(value.IndexOf("=", StringComparison.Ordinal) + 1);
+                result = Convert.ToBoolean(value);
+            }
+            return result;
+        }
+
+        private int GetIntValue(string key, int defaultValue)
+        {
+            int result = defaultValue;
+
+            string value = _serverSettings.Find(s => s.StartsWith(key));
+            if (!string.IsNullOrEmpty(value))
+            {
+                value = value.Substring(value.IndexOf("=", StringComparison.Ordinal) + 1);
+                result = Convert.ToInt32(value);
+            }
+            return result;
+        }
+
+        private string GetStringValue(string key, string defaultValue)
+        {
+            string result = defaultValue;
+
+            string value = _serverSettings.Find(s => s.StartsWith(key));
+            if (!string.IsNullOrEmpty(value))
+                result = value.Substring(value.IndexOf("=", StringComparison.Ordinal) + 1);
+            return result;
         }
 
         /// <summary>
@@ -82,12 +152,30 @@ namespace MC_Server_Config
             _serverSettings.Add(string.Format("{0}={1}", matchString, checkBox.Checked.ToString().ToLower()));
         }
 
-        #region Event Handlers
-        private void btnSave_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Change a string in the server settings.
+        /// </summary>
+        /// <param name="matchString"></param>
+        /// <param name="textBox"></param>
+        private void ChangeString(string matchString, Control textBox)
         {
-            
+            // Get rid of any matches. There's probably more elegant ways to do this, but simple is good.
+            _serverSettings.RemoveAll(s => s.StartsWith(matchString));
+            _serverSettings.Add(string.Format("{0}={1}", matchString, textBox.Text));
         }
 
+        /// <summary>
+        /// Change a number in the server settings.
+        /// </summary>
+        /// <param name="matchString"></param>
+        /// <param name="spin"></param>
+        private void ChangeInt(string matchString, SpinEdit spin)
+        {
+            _serverSettings.RemoveAll(s => s.StartsWith(matchString));
+            _serverSettings.Add(string.Format("{0}={1}", matchString, spin.Value));
+        }
+
+        #region Event Handlers
         private void chkFlight_CheckedChanged(object sender, EventArgs e)
         {
             ChangeBoolean("allow-flight", chkFlight);
@@ -96,11 +184,6 @@ namespace MC_Server_Config
         private void chkNether_CheckedChanged(object sender, EventArgs e)
         {
             ChangeBoolean("allow-nether", chkNether);
-        }
-
-        private void chkAnnounce_CheckedChanged(object sender, EventArgs e)
-        {
-            ChangeBoolean("announce-player-achievments", chkAnnounce);
         }
 
         private void cbDifficulty_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,62 +211,48 @@ namespace MC_Server_Config
             _serverSettings.Add(string.Format("difficulty={0}", difficulty));
         }
 
-        private void chkQuery_CheckedChanged(object sender, EventArgs e)
-        {
-            ChangeBoolean("enable-query", chkQuery);
-            spQueryPort.Enabled = chkQuery.Checked;
-        }
-
-        private void chkRemote_CheckedChanged(object sender, EventArgs e)
-        {
-            ChangeBoolean("enable-rcon", chkRemote);
-            txtRemotePassword.Enabled = chkRemote.Checked;
-            spRemotePort.Enabled = chkRemote.Checked;
-        }
-
         private void btnDefault_ItemClick(object sender, ItemClickEventArgs e)
         {
             chkFlight.Checked = false;
-            chkNether.Checked = true;
             chkAnnounce.Checked = true;
             cbDifficulty.SelectedIndex = 1;
             chkQuery.Checked = false;
             chkRemote.Checked = false;
-            chkCommandBlocks.Checked = false;
-            chkGameMode.Checked = false;
+            chkCommand.Checked = false;
+            chkForceGameMode.Checked = false;
             cbGameMode.SelectedIndex = 0;
             chkStructures.Checked = true;
             chkHardcore.Checked = false;
-            txtLevelName.Text = @"world";
-            txtLevelSeed.Text = string.Empty;
-            txtLevelType.Text = @"DEFAULT";
-            spMaxBuildHeight.Value = 256;
-            spMaxPlayers.Value = 20;
-            spMaxTickTime.Value = 60000;
-            spMaxWorldSize.Value = 29999984;
+            txtName.Text = @"world";
+            txtSeed.Text = string.Empty;
+            txtType.Text = @"DEFAULT";
+            spinBuildHeight.Value = 256;
+            spinPlayers.Value = 20;
+            spinTickTime.Value = 60000;
+            spinWorldSize.Value = 29999984;
             txtMessage.Text = @"A Minecraft Server";
-            spNetwork.Value = 256;
+            spinNetwork.Value = 256;
             chkOnline.Checked = true;
-            spPermission.Value = 4;
-            spIdleTimeout.Value = 0;
+            spinPermission.Value = 4;
+            spinTimeout.Value = 0;
             chkPvP.Checked = true;
-            spQueryPort.Value = 25565;
-            txtRemotePassword.Text = string.Empty;
-            spRemotePort.Value = 25575;
             txtResource.Text = string.Empty;
             txtResourceHash.Text = string.Empty;
             txtServerIP.Text = string.Empty;
-            spServerPort.Value = 25565;
+            spinServerPort.Value = 25565;
             chkSnooper.Checked = true;
             chkAnimals.Checked = true;
             chkMonsters.Checked = true;
             chkNPCs.Checked = true;
-            spProtection.Value = 16;
-            chkNative.Checked = true;
-            spView.Value = 10;
-            chkWhiteList.Checked = true;
+            spinView.Value = 10;
+            chkWhitelist.Checked = false;
+            chkNether.Checked = true;
+            spinQueryPort.Value = 25565;
+            txtRemotePassword.Text = string.Empty;
+            spinRemotePort.Value = 25575;
+            spinSpawnProtection.Value = 16;
+            chkNativeTransport.Checked = true;
         }
-        #endregion Event Handlers
 
         private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -198,5 +267,124 @@ namespace MC_Server_Config
             File.WriteAllLines(_file, _serverSettings);
             MessageBox.Show(@"Complete!");
         }
+
+        private void chkAnnounce_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("announce-player-achievements", chkAnnounce);
+        }
+
+        private void chkCommand_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("enable-command-block", chkCommand);
+        }
+
+        private void chkQuery_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("enable-query", chkQuery);
+            spinQueryPort.Enabled = chkQuery.Checked;
+        }
+
+        private void chkRemote_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("enable-rcon", chkRemote);
+            txtRemotePassword.Enabled = chkRemote.Checked;
+            spinRemotePort.Enabled = chkRemote.Checked;
+        }
+
+        private void chkForceGameMode_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("force-gamemode", chkForceGameMode);
+        }
+
+        private void cbGameMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _serverSettings.RemoveAll(s => s.StartsWith("gamemode"));
+            string gamemode;
+            switch (cbGameMode.SelectedText)
+            {
+                case "Survival":
+                    gamemode = "0";
+                    break;
+                case "Creative":
+                    gamemode = "1";
+                    break;
+                case "Adventure":
+                    gamemode = "2";
+                    break;
+                case "Spectator":
+                    gamemode = "3";
+                    break;
+                default:
+                    gamemode = "0";
+                    break;
+            }
+            _serverSettings.Add(string.Format("gamemode={0}", gamemode));
+        }
+
+        private void chkStructures_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("generate-structures", chkStructures);
+        }
+
+        private void chkHardcore_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("hardcore", chkHardcore);
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            ChangeString("level-name", txtName);
+        }
+
+        private void txtSeed_TextChanged(object sender, EventArgs e)
+        {
+            ChangeString("level-seed", txtSeed);
+        }
+
+        private void txtType_TextChanged(object sender, EventArgs e)
+        {
+            ChangeString("level-type", txtType);
+        }
+
+        private void spinBuildHeight_ValueChanged(object sender, EventArgs e)
+        {
+            ChangeInt("max-build-height", spinBuildHeight);
+        }
+
+        private void spinPlayers_ValueChanged(object sender, EventArgs e)
+        {
+            ChangeInt("max-players", spinPlayers);
+        }
+
+        private void spinTickTime_ValueChanged(object sender, EventArgs e)
+        {
+            ChangeInt("max-tick-time", spinTickTime);
+        }
+
+        private void spinQueryPort_ValueChanged(object sender, EventArgs e)
+        {
+            ChangeInt("query.port", spinQueryPort);
+        }
+
+        private void txtRemotePassword_TextChanged(object sender, EventArgs e)
+        {
+            ChangeString("rcon.password", txtRemotePassword);
+        }
+
+        private void spinRemotePort_ValueChanged(object sender, EventArgs e)
+        {
+            ChangeInt("rcon.port", spinRemotePort);
+        }
+
+        private void spinSpawnProtection_ValueChanged(object sender, EventArgs e)
+        {
+            ChangeInt("spawn-protection", spinSpawnProtection);
+        }
+
+        private void chkNativeTransport_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBoolean("user-native-transport", chkNativeTransport);
+        }
+        #endregion Event Handlers
     }
 }

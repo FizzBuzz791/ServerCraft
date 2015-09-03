@@ -325,11 +325,19 @@
 </value>
   </data>
   <data name="toolTipItem1.Text" xml:space="preserve">
+    <value>Linux server performance improvements: optimized packet sending/receiving on Linux.
+&lt;b&gt;true&lt;/b&gt; - Enable Linux packet sending/receiving optimization.
+&lt;b&gt;false&lt;/b&gt; - Disable Linux packet sending/receiving optimization.</value>
+  </data>
+  <data name="toolTipItem2.Text" xml:space="preserve">
+    <value>Determines the radius of the spawn protection. Setting this to 0 will not disable spawn protection. 0 will protect the single block at the spawn point. 1 will protect a 3x3 area centered on the spawn point. 2 will protect 5x5, 3 will protect 7x7, etc. If there are no ops set on the server, the spawn protection will be disabled automatically.</value>
+  </data>
+  <data name="toolTipItem7.Text" xml:space="preserve">
     <value>Sets the amount of world data the server sends the client, measured in chunks in each direction of the player (radius, not diameter). It determins the server-wide viewing distance.
 
 &lt;i&gt;10 is the default/recommended. If you have major lag, reduce this value.&lt;/i&gt;</value>
   </data>
-  <data name="toolTipItem2.Text" xml:space="preserve">
+  <data name="toolTipItem8.Text" xml:space="preserve">
     <value>Enables a whitelist on the server.
 
 With a whitelist enabled, users not on the whitelist will be unable to connect. Intended for private servers, such as those for real-life friends or strangers carefully selected via an application process, for example.
@@ -338,7 +346,7 @@ With a whitelist enabled, users not on the whitelist will be unable to connect. 
 
 &lt;b&gt;Note:&lt;/b&gt; &lt;i&gt;Ops are automatically white listed and there is no need to add them to the whitelist.&lt;/i&gt;</value>
   </data>
-  <data name="toolTipItem4.Text" xml:space="preserve">
+  <data name="toolTipItem10.Text" xml:space="preserve">
     <value>Determines if monsters will be spawned.
 &lt;b&gt;true&lt;/b&gt; - Enabled. Monsters will appear at night and in the dark.
 &lt;b&gt;false&lt;/b&gt; - Disabled. No monsters.
@@ -347,17 +355,17 @@ This does nothing if difficulty = 0 (peaceful).
 &lt;i&gt;Unless your difficulty is not set to 0, a monster can still spawn from a Monster Spawner.
 Tip: if you have major lab, turn this off/set to false.&lt;/i&gt;</value>
   </data>
-  <data name="toolTipItem9.Text" xml:space="preserve">
+  <data name="toolTipItem15.Text" xml:space="preserve">
     <value>Optional SHA-1 digest of the resource pack, in lowercase hexadecimal. It's recommended to specify this. This is not yet used to verify the integrity of the resouce pack, but improves the effectiveness and reliability of caching.</value>
   </data>
-  <data name="toolTipItem11.Text" xml:space="preserve">
+  <data name="toolTipItem17.Text" xml:space="preserve">
     <value>Enable PvP on the server. Players shooting themselves with arrows will only receive damage if PvP is enabled.
 &lt;b&gt;true&lt;/b&gt; - Players will be able to kill each other.
 &lt;b&gt;false&lt;/b&gt; - Players cannot kill other players (also known as &lt;b&gt;Player versus Environment (PvE)&lt;/b&gt;).
 
 &lt;b&gt;Note:&lt;/b&gt; &lt;i&gt;Indirect damage sources spawned by players (such as lava, fire, TNT and to some extent water, sand and gravel) will still deal damage to other players.&lt;/b&gt;</value>
   </data>
-  <data name="toolTipItem12.Text" xml:space="preserve">
+  <data name="toolTipItem18.Text" xml:space="preserve">
     <value>If non-zero, players are kicked from the server if they are idle for man that that many minutes.
 &lt;b&gt;Note:&lt;/b&gt; Idle time is reset when the server receives one of the following packets:
 * 102 (0x66) WindowClick
@@ -372,47 +380,47 @@ Tip: if you have major lab, turn this off/set to false.&lt;/i&gt;</value>
 * 3 (0x3) Chat
 * 7 (0x7) UseEntity</value>
   </data>
-  <data name="toolTipItem13.Text" xml:space="preserve">
+  <data name="toolTipItem19.Text" xml:space="preserve">
     <value>Sets permission level for ops.
 &lt;b&gt;1&lt;/b&gt; - Ops can bypass spawn protection.
 &lt;b&gt;2&lt;/b&gt; - Ops can use /clear, /difficulty, /effect, /gamemode, /gamerule, /give, /tp and can edit command blocks..
 &lt;b&gt;3&lt;/b&gt; - Ops can use /ban, /deop, /kick and /op.
 &lt;b&gt;4&lt;/b&gt; - Ops can use /stop.</value>
   </data>
-  <data name="toolTipItem14.Text" xml:space="preserve">
+  <data name="toolTipItem20.Text" xml:space="preserve">
     <value>Server checks connecting players against minecraft's account database. Only set this to false if your server is &lt;b&gt;not&lt;/b&gt; connected to the Internet. Hackers with fake accounts can connect if this is set to false! If minecraft.net is down or inaccessible, no players will be able to connect if this is set to true. Settings thie variable to off purposely is called "cracking" a server and server that are presently with online mode off are called "cracked" servers, allowing players with unlicensed copies of Minecraft to join.
 &lt;b&gt;true&lt;/b&gt; - Enabled. The server will assume it has an Internet connection and check every connecting player.
 &lt;b&gt;false&lt;/b&gt; - Disabled. The server will not attempt to check connecting players.</value>
   </data>
-  <data name="toolTipItem15.Text" xml:space="preserve">
+  <data name="toolTipItem21.Text" xml:space="preserve">
     <value>By default it allows packets that are &lt;i&gt;n-1&lt;/i&gt; bytes big to go normally, but a packet that is &lt;i&gt;n&lt;/i&gt; bytes or more will be compressed down.  So, a lower number means more compression, however, compressing small amounts of bytes might actually end up with a larger result than what went in.
 &lt;b&gt;-1&lt;/b&gt; - disable compression entirely.
 &lt;b&gt;0&lt;/b&gt; - compress everything.
 
 &lt;b&gt;Note:&lt;/b&gt; &lt;i&gt;The Ethernet spec requires that packets less than 64 bytes become padded to 64 bytes. Thus, setting a value lowe than 64 may not be beneficial. It is also not recommended to exceed the MTU (maximum tranmission unit); typically 1500 bytes.</value>
   </data>
-  <data name="toolTipItem16.Text" xml:space="preserve">
+  <data name="toolTipItem22.Text" xml:space="preserve">
     <value>This is the message that is displayed in the server list of the client, below the name.
 
 * The MOTD supports color and formatting codes.
 * The MOTD supports special characts, such as "♥". However, such characters must be converted to escaped Unicode form.
 * The server list does not support messages over 59 characters, hence the restriction on the MOTD length.</value>
   </data>
-  <data name="toolTipItem17.Text" xml:space="preserve">
+  <data name="toolTipItem23.Text" xml:space="preserve">
     <value>This sets the maximum possible size in blocks, expressed as a radius, that the world border can obtain. Setting the world border bigger causes the commands to complete successfully but the actual border will not move past this block limit. Setting the max-world-size higher than the default doesn't appear to do anything.
 
 Examples:
  * Setting max-world-size to 1000 will allow you to have an 2000x2000 world border.
 * Settings max-world-size to 4000 will allow you to have an 8000x8000 world border.</value>
   </data>
-  <data name="toolTipItem18.Text" xml:space="preserve">
+  <data name="toolTipItem24.Text" xml:space="preserve">
     <value>The maximum number of milliseconds a single tick may take before the server watchdog stops the server with the message; &lt;i&gt;A single server tick took X seconds (should be max 0.05); Considering it to be crashed, server will forcibly shutdown.&lt;/i&gt; Once this criteria is met, it calls System.exit(1).
 &lt;b&gt;-1&lt;/b&gt; - disable watchdog entirely (this disable option was added in 14w32a).</value>
   </data>
-  <data name="toolTipItem19.Text" xml:space="preserve">
+  <data name="toolTipItem25.Text" xml:space="preserve">
     <value>The maximum number of players that can play on the server at the same time. Note that if more players are on the server it will use more resources. Note also, op players connections are not supposed to count against the max players, but ops currently cannot join a full server. Extemely large values for this field result in the client-side user list being broken.</value>
   </data>
-  <data name="toolTipItem21.Text" xml:space="preserve">
+  <data name="toolTipItem27.Text" xml:space="preserve">
     <value>Determines the type of map that is generated.
 &lt;b&gt;DEFAULT&lt;/b&gt; - Standard world with hills, valleys, water, etc.
 &lt;b&gt;FLAT&lt;/b&gt; - A flat workd with no features, meant for building.
@@ -420,24 +428,24 @@ Examples:
 &lt;b&gt;AMPLIFIED&lt;/b&gt; - Same as default but world-generation height limit is increased.
 &lt;b&gt;CUSTOMIZED&lt;/b&gt; - Same as default unless &lt;b&gt;generator-settings&lt;/b&gt; is set to a preset.</value>
   </data>
-  <data name="toolTipItem23.Text" xml:space="preserve">
+  <data name="toolTipItem29.Text" xml:space="preserve">
     <value>The "level-name" value will be used as the world name and its folder name. You may also copy your saved game folder here and change the name to the same as that folders, to load it instead.
 
 Characters such as ' (apostrophe) may need to be escaped by adding a backslash before them.</value>
   </data>
-  <data name="toolTipItem25.Text" xml:space="preserve">
+  <data name="toolTipItem31.Text" xml:space="preserve">
     <value>The settings used to customize world generation.
 
 &lt;b&gt;Note:&lt;/b&gt; This feature is not yet implemented (in this program) and will always set "generator-settings" to &lt;i&gt;blank&lt;/i&gt;. Please edit the server.properties file manually if you want to set this value.</value>
   </data>
-  <data name="toolTipItem26.Text" xml:space="preserve">
+  <data name="toolTipItem32.Text" xml:space="preserve">
     <value>Defines whether structures (such as villages) will be generated.
 &lt;b&gt;false&lt;/b&gt; - Structures will not be generated in new chunks.
 &lt;b&gt;true&lt;/b&gt; - Structures will be generated in new chunks.
 
 &lt;b&gt;Note:&lt;/b&gt; &lt;i&gt;Dungeons will still generate if this is set to false.&lt;/i&gt;</value>
   </data>
-  <data name="toolTipItem34.Text" xml:space="preserve">
+  <data name="toolTipItem40.Text" xml:space="preserve">
     <value>Allows users to use flight on your server while in Survival mode, if they have a mod that provides flight installed.
 
 With allow-flight enabled, griefers will possibly be more common, because it will make their work easier. In Creative mode, this has no effect.

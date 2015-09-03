@@ -1,1 +1,10 @@
 C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\bin\Debug\ServerCraft.exe.config
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\bin\Debug\ServerCraft.exe
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\bin\Debug\ServerCraft.pdb
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\obj\Debug\ServerCraft.csprojResolveAssemblyReference.cache
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\obj\Debug\ServerCraft.FrmMain.resources
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\obj\Debug\ServerCraft.Properties.Resources.resources
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\obj\Debug\ServerCraft.csproj.GenerateResource.Cache
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\obj\Debug\ServerCraft.exe.licenses
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\obj\Debug\ServerCraft.exe
+C:\Users\trent_000\Documents\Visual Studio 2013\Projects\ServerCraft\ServerCraft\obj\Debug\ServerCraft.pdb

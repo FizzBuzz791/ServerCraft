@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MC_Server_Config.Properties
+namespace ServerCraft.Properties
 {
 
 

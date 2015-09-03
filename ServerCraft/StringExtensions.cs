@@ -1,4 +1,4 @@
-﻿namespace MC_Server_Config
+﻿namespace ServerCraft
 {
     public static class StringExtensions
     {
